@@ -21,16 +21,20 @@ class ViewController: UIViewController {
     @IBAction func didTapButton(_ sender: UIButton) {
         switch sender.tag {
         case 0:
-            break
+            setImage(leftTopPictureIsHidden: true, leftBottomPictureIsHidden: false)
         case 1:
-            break
+            setImage(leftTopPictureIsHidden: false, leftBottomPictureIsHidden: true)
         case 2:
-            break
+            setImage(leftTopPictureIsHidden: false, leftBottomPictureIsHidden: false)
         default:
             break
         }
     }
     
+    private func setImage(leftTopPictureIsHidden: Bool, leftBottomPictureIsHidden: Bool ) {
+        pictureView.stackTopView.viewWithTag(1)?.isHidden = leftTopPictureIsHidden
+        pictureView.stackBottomView.viewWithTag(1)?.isHidden = leftBottomPictureIsHidden
+    }
     
 }
 
