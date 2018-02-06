@@ -91,6 +91,10 @@
                                     <constraint firstAttribute="width" secondItem="6VX-Tx-BDg" secondAttribute="height" multiplier="1:1" id="rXk-Uw-B7B"/>
                                     <constraint firstAttribute="bottom" secondItem="ym9-5c-bTw" secondAttribute="bottom" constant="8" id="zXW-7h-JJg"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="stackBottomView" destination="avX-fh-RTN" id="wES-Mh-PyI"/>
+                                    <outlet property="stackTopView" destination="Jnb-9q-OKM" id="LB1-4N-Unz"/>
+                                </connections>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ogq-TI-08G">
                                 <rect key="frame" x="37" y="625.33333333333337" width="340" height="90.666666666666629"/>
