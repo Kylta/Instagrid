@@ -18,13 +18,43 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        swipeUpToShare()
     }
     
-    // MARK: - Display PictureView Methods
+    // MARK: - Private methods
     
     private func setImage(leftTopPictureIsHidden: Bool, leftBottomPictureIsHidden: Bool ) {
         pictureView.stackTopView.viewWithTag(1)?.isHidden = leftTopPictureIsHidden
         pictureView.stackBottomView.viewWithTag(0)?.isHidden = leftBottomPictureIsHidden
+    }
+    
+    private func swipeUpToShare() {
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
+        swipeUp.direction = UISwipeGestureRecognizerDirection.up
+        self.view.addGestureRecognizer(swipeUp)
+    }
+    
+    // MARK: - @objc Methods
+    
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            
+            UIGraphicsBeginImageContext(pictureView.frame.size)
+            
+            pictureView.layer.render(in: UIGraphicsGetCurrentContext()!)
+            
+            guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return }
+            
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.up:
+                let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                
+                self.present(activityVC, animated: true, completion: nil)
+                print("Swipe up")
+            default:
+                break
+            }
+        }
     }
     
     // MARK: - @IBaction Methods
@@ -71,7 +101,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             pictureView.picture[imagePickedController].setImage(pickedImage, for: .normal)
-            pictureView.picture[imagePickedController].contentMode = .scaleAspectFill
+            pictureView.picture[imagePickedController].contentMode = .scaleAspectFit
         }
         
         picker.dismiss(animated: true, completion: nil)
