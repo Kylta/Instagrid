@@ -123,7 +123,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="90.666666666666671"/>
                                                 <state key="normal" backgroundImage="Layout 1"/>
                                                 <connections>
-                                                    <action selector="didTapButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ykE-xy-51l"/>
+                                                    <action selector="didTapBottomButtonForChooseOrder:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ykE-xy-51l"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -135,7 +135,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="90.666666666666671"/>
                                                 <state key="normal" backgroundImage="Layout 2"/>
                                                 <connections>
-                                                    <action selector="didTapButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EPu-Mh-PUZ"/>
+                                                    <action selector="didTapBottomButtonForChooseOrder:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EPu-Mh-PUZ"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -147,7 +147,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="90.666666666666671"/>
                                                 <state key="normal" backgroundImage="Layout 3"/>
                                                 <connections>
-                                                    <action selector="didTapButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iUj-sH-sD1"/>
+                                                    <action selector="didTapBottomButtonForChooseOrder:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iUj-sH-sD1"/>
                                                 </connections>
                                             </button>
                                         </subviews>
