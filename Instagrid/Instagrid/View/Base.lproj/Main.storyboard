@@ -43,38 +43,50 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lQP-dn-WlD">
                                                                 <rect key="frame" x="0.0" y="0.0" width="157" height="158"/>
                                                                 <state key="normal" image="Combined Shape" backgroundImage="Rectangle 1"/>
+                                                                <connections>
+                                                                    <action selector="choosePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Ok-D5-YJv"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" tag="2" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dym-Id-rZE">
                                                         <rect key="frame" x="167" y="0.0" width="157" height="158"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6b-9x-Y1a">
+                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6b-9x-Y1a">
                                                                 <rect key="frame" x="0.0" y="0.0" width="157" height="158"/>
                                                                 <state key="normal" image="Combined Shape" backgroundImage="Rectangle 1"/>
+                                                                <connections>
+                                                                    <action selector="choosePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3My-Ph-HWA"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="avX-fh-RTN">
+                                            <stackView opaque="NO" tag="1" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="avX-fh-RTN">
                                                 <rect key="frame" x="0.0" y="166" width="324" height="158"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="plm-vF-seH">
                                                         <rect key="frame" x="0.0" y="0.0" width="157" height="158"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V63-aE-fle">
+                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V63-aE-fle">
                                                                 <rect key="frame" x="0.0" y="0.0" width="157" height="158"/>
                                                                 <state key="normal" image="Combined Shape" backgroundImage="Rectangle 1"/>
+                                                                <connections>
+                                                                    <action selector="choosePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="h6q-fi-cdv"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" tag="1" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="M3N-pK-u6H">
                                                         <rect key="frame" x="167" y="0.0" width="157" height="158"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gw8-3X-mCf">
+                                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gw8-3X-mCf">
                                                                 <rect key="frame" x="0.0" y="0.0" width="157" height="158"/>
                                                                 <state key="normal" image="Combined Shape" backgroundImage="Rectangle 1"/>
+                                                                <connections>
+                                                                    <action selector="choosePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8h1-9X-MWy"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -95,6 +107,10 @@
                                     <outlet property="stackBottomView" destination="avX-fh-RTN" id="wES-Mh-PyI"/>
                                     <outlet property="stackTopView" destination="Jnb-9q-OKM" id="LB1-4N-Unz"/>
                                     <outlet property="stackView" destination="ym9-5c-bTw" id="qD9-I3-pwS"/>
+                                    <outletCollection property="picture" destination="lQP-dn-WlD" collectionClass="NSMutableArray" id="3tU-1A-HbH"/>
+                                    <outletCollection property="picture" destination="x6b-9x-Y1a" collectionClass="NSMutableArray" id="w0b-QW-TWu"/>
+                                    <outletCollection property="picture" destination="V63-aE-fle" collectionClass="NSMutableArray" id="yfS-MQ-9G4"/>
+                                    <outletCollection property="picture" destination="gw8-3X-mCf" collectionClass="NSMutableArray" id="IjR-wS-Dx8"/>
                                 </connections>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ogq-TI-08G">
