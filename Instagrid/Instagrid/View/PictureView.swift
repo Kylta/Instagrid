@@ -10,6 +10,7 @@ import UIKit
 
 class PictureView: UIView {
 
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var stackTopView: UIStackView!
     @IBOutlet weak var stackBottomView: UIStackView!
     
