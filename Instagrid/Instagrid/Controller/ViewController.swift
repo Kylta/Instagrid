@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    @IBOutlet weak var settingCollagePicture: UIStackView!
+    @IBOutlet var orderButtonPicture: [UIButton]!
     @IBOutlet weak var pictureView: PictureView!
     
     var imagePickedController = 0
@@ -33,6 +33,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
         swipeUp.direction = UISwipeGestureRecognizerDirection.up
         self.view.addGestureRecognizer(swipeUp)
+    }
+    
+    private func disableButtonDifferentOfValue(orderButtonPicture: [UIButton], value: Int, isSelected: Bool) {
+        for button in orderButtonPicture {
+            if button.tag != value {
+                button.isSelected = isSelected
+            }
+        }
     }
     
     // MARK: - @objc Methods
@@ -66,12 +74,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         case 0:
             // left button
             setImage(leftTopPictureIsHidden: true, leftBottomPictureIsHidden: false)
+            sender.isSelected = true
+            
+            disableButtonDifferentOfValue(orderButtonPicture: orderButtonPicture, value: 0, isSelected: false)
         case 1:
             // middle button
             setImage(leftTopPictureIsHidden: false, leftBottomPictureIsHidden: true)
+            sender.isSelected = true
+            
+            disableButtonDifferentOfValue(orderButtonPicture: orderButtonPicture, value: 1, isSelected: false)
         case 2:
             // right button
             setImage(leftTopPictureIsHidden: false, leftBottomPictureIsHidden: false)
+            sender.isSelected = true
+            
+            disableButtonDifferentOfValue(orderButtonPicture: orderButtonPicture, value: 2, isSelected: false)
         default:
             break
         }
