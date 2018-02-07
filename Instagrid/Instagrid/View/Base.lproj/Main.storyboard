@@ -373,6 +373,7 @@
                     </view>
                     <connections>
                         <outlet property="pictureView" destination="6VX-Tx-BDg" id="7Q1-KK-F87"/>
+                        <outlet property="shareLabel" destination="Ver-35-yUL" id="NSn-2F-DhX"/>
                         <outletCollection property="orderButtonPicture" destination="wUq-4A-rxQ" collectionClass="NSMutableArray" id="M9J-Op-cMr"/>
                         <outletCollection property="orderButtonPicture" destination="aja-71-B6h" collectionClass="NSMutableArray" id="6SP-er-Rh8"/>
                         <outletCollection property="orderButtonPicture" destination="baO-cN-jMH" collectionClass="NSMutableArray" id="Wb8-ZI-3Ad"/>

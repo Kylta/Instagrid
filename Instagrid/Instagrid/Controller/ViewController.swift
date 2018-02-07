@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet var orderButtonPicture: [UIButton]!
+    @IBOutlet weak var shareLabel: UILabel!
     @IBOutlet weak var pictureView: PictureView!
     
     var imagePickedController = 0
@@ -18,10 +19,28 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        swipeUpToShare()
+    }
+    
+    // Notifies the container that the size of its view is about to change.
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        print(UIDevice.current.orientation)
+        determineMyDeviceOrientation()
     }
     
     // MARK: - Private methods
+    
+    private func determineMyDeviceOrientation()
+    {
+        if UIDevice.current.orientation.isLandscape {
+            print("Device is in landscape mode")
+            shareLabel.text = "Swipe left to share"
+            swipeleftToShare()
+        } else {
+            print("Device is in portrait mode")
+            shareLabel.text = "Swipe up to share"
+            swipeUpToShare()
+        }
+    }
     
     private func setImage(leftTopPictureIsHidden: Bool, leftBottomPictureIsHidden: Bool ) {
         pictureView.stackTopView.viewWithTag(1)?.isHidden = leftTopPictureIsHidden
@@ -33,6 +52,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
         swipeUp.direction = UISwipeGestureRecognizerDirection.up
         self.view.addGestureRecognizer(swipeUp)
+    }
+    
+    private func swipeleftToShare() {
+        // A concrete subclass of UIGestureRecognizer that looks for swiping gestures in one or more directions.
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
     }
     
     private func disableButtonDifferentOfValue(orderButtonPicture: [UIButton], value: Int, isSelected: Bool) {
@@ -61,6 +87,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 
                 self.present(activityVC, animated: true, completion: nil)
                 print("Swipe up")
+            case UISwipeGestureRecognizerDirection.left:
+                // A view controller that you can use to offer various services from your app.
+                let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                
+                self.present(activityVC, animated: true, completion: nil)
+                print("Swipe left")
             default:
                 break
             }
