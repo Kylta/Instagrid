@@ -19,6 +19,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        startAppli()
     }
     
     // Notifies the container that the size of its view is about to change.
@@ -29,8 +30,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: - Private methods
     
-    private func determineMyDeviceOrientation()
-    {
+    private func startAppli() {
+        setImage(leftTopPictureIsHidden: false, leftBottomPictureIsHidden: true)
+        orderButtonPicture[1].isSelected = true
+        
+        disableButtonDifferentOfValue(orderButtonPicture: orderButtonPicture, value: 1, isSelected: false)
+    }
+    
+    private func determineMyDeviceOrientation() {
         if UIDevice.current.orientation.isLandscape {
             print("Device is in landscape mode")
             shareLabel.text = "Swipe left to share"
