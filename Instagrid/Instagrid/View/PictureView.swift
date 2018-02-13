@@ -15,4 +15,6 @@ class PictureView: UIView {
     @IBOutlet weak var stackBottomView: UIStackView!
     @IBOutlet var picture: [UIButton]!
     
+    var backgroundPV: [Any]?
+    
 }

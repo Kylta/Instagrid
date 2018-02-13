@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     @IBOutlet var orderButtonPicture: [UIButton]!
     @IBOutlet weak var shareLabel: UILabel!
     @IBOutlet weak var pictureView: PictureView!
@@ -19,13 +19,32 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //        let orientation = UIApplication.shared.statusBarOrientation
+        ////        var deviceOrientation = UIDeviceOrientation(rawValue: 0)
+        //        var deviceOrientation = UIDevice.current.orientation
+        //        print(deviceOrientation.rawValue)
+        //
+        //        switch orientation {
+        //        case .portraitUpsideDown, .portrait:
+        ////            swipeMethod(deviceOrientation: deviceOrientation)
+        //            deviceOrientation = UIDeviceOrientation.portrait
+        //        case .landscapeLeft, .landscapeRight:
+        //            deviceOrientation = UIDeviceOrientation.landscapeRight
+        ////            swipeMethod(deviceOrientation: deviceOrientation)
+        //        default:
+        //            break
+        //        }
+        
         startAppli()
+        swipeMethod(deviceOrientation: UIDevice.current.orientation)
     }
     
     // Notifies the container that the size of its view is about to change.
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        print("TEST")
         print(UIDevice.current.orientation)
-        determineMyDeviceOrientation()
+        swipeMethod(deviceOrientation: UIDevice.current.orientation)
+        
     }
     
     // MARK: - Private methods
@@ -37,21 +56,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         disableButtonDifferentOfValue(orderButtonPicture: orderButtonPicture, value: 1, isSelected: false)
     }
     
-    private func determineMyDeviceOrientation() {
-        if UIDevice.current.orientation.isLandscape {
-            print("Device is in landscape mode")
-            shareLabel.text = "Swipe left to share"
-            swipeleftToShare()
-        } else {
-            print("Device is in portrait mode")
-            shareLabel.text = "Swipe up to share"
-            swipeUpToShare()
-        }
-    }
-    
     private func setImage(leftTopPictureIsHidden: Bool, leftBottomPictureIsHidden: Bool ) {
         pictureView.stackTopView.viewWithTag(1)?.isHidden = leftTopPictureIsHidden
-        pictureView.stackBottomView.viewWithTag(0)?.isHidden = leftBottomPictureIsHidden
+        pictureView.stackBottomView.viewWithTag(2)?.isHidden = leftBottomPictureIsHidden
+    }
+    
+    private func swipeMethod(deviceOrientation: UIDeviceOrientation) {
+        // A concrete subclass of UIGestureRecognizer that looks for swiping gestures in one or more directions.
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
+        self.view.addGestureRecognizer(swipe)
+        
+        switch deviceOrientation {
+        case .portrait, .portraitUpsideDown:
+            swipe.direction = UISwipeGestureRecognizerDirection.up
+        case .landscapeLeft, .landscapeRight:
+            swipe.direction = UISwipeGestureRecognizerDirection.left
+        default :
+            break
+        }
+        
     }
     
     private func swipeUpToShare() {
@@ -107,7 +130,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // MARK: - @IBaction Methods
-
+    
     @IBAction func didTapBottomButtonForChooseOrder(_ sender: UIButton) {
         switch sender.tag {
         case 0:

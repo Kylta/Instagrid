@@ -37,59 +37,39 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jnb-9q-OKM">
                                                 <rect key="frame" x="0.0" y="0.0" width="285" height="138.5"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" tag="1" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Fw6-ql-hVB">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lQP-dn-WlD">
                                                         <rect key="frame" x="0.0" y="0.0" width="137.5" height="138.5"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lQP-dn-WlD">
-                                                                <rect key="frame" x="0.0" y="0.0" width="137.5" height="138.5"/>
-                                                                <state key="normal" image="Combined Shape" backgroundImage="Rectangle 1"/>
-                                                                <connections>
-                                                                    <action selector="choosePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Ok-D5-YJv"/>
-                                                                </connections>
-                                                            </button>
-                                                        </subviews>
-                                                    </stackView>
-                                                    <stackView opaque="NO" tag="2" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dym-Id-rZE">
+                                                        <state key="normal" image="Combined Shape" backgroundImage="Rectangle 1"/>
+                                                        <connections>
+                                                            <action selector="choosePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Ok-D5-YJv"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6b-9x-Y1a">
                                                         <rect key="frame" x="147.5" y="0.0" width="137.5" height="138.5"/>
-                                                        <subviews>
-                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6b-9x-Y1a">
-                                                                <rect key="frame" x="0.0" y="0.0" width="137.5" height="138.5"/>
-                                                                <state key="normal" image="Combined Shape" backgroundImage="Rectangle 1"/>
-                                                                <connections>
-                                                                    <action selector="choosePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3My-Ph-HWA"/>
-                                                                </connections>
-                                                            </button>
-                                                        </subviews>
-                                                    </stackView>
+                                                        <state key="normal" image="Combined Shape" backgroundImage="Rectangle 1"/>
+                                                        <connections>
+                                                            <action selector="choosePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3My-Ph-HWA"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" tag="1" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="avX-fh-RTN">
                                                 <rect key="frame" x="0.0" y="146.5" width="285" height="138.5"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="plm-vF-seH">
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V63-aE-fle">
                                                         <rect key="frame" x="0.0" y="0.0" width="137.5" height="138.5"/>
-                                                        <subviews>
-                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V63-aE-fle">
-                                                                <rect key="frame" x="0.0" y="0.0" width="137.5" height="138.5"/>
-                                                                <state key="normal" image="Combined Shape" backgroundImage="Rectangle 1"/>
-                                                                <connections>
-                                                                    <action selector="choosePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="h6q-fi-cdv"/>
-                                                                </connections>
-                                                            </button>
-                                                        </subviews>
-                                                    </stackView>
-                                                    <stackView opaque="NO" tag="1" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="M3N-pK-u6H">
+                                                        <state key="normal" image="Combined Shape" backgroundImage="Rectangle 1"/>
+                                                        <connections>
+                                                            <action selector="choosePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="h6q-fi-cdv"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gw8-3X-mCf">
                                                         <rect key="frame" x="147.5" y="0.0" width="137.5" height="138.5"/>
-                                                        <subviews>
-                                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gw8-3X-mCf">
-                                                                <rect key="frame" x="0.0" y="0.0" width="137.5" height="138.5"/>
-                                                                <state key="normal" image="Combined Shape" backgroundImage="Rectangle 1"/>
-                                                                <connections>
-                                                                    <action selector="choosePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8h1-9X-MWy"/>
-                                                                </connections>
-                                                            </button>
-                                                        </subviews>
-                                                    </stackView>
+                                                        <state key="normal" image="Combined Shape" backgroundImage="Rectangle 1"/>
+                                                        <connections>
+                                                            <action selector="choosePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8h1-9X-MWy"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
@@ -320,13 +300,13 @@
                                 <exclude reference="P2e-pe-nm9"/>
                                 <exclude reference="lin-vE-FFo"/>
                                 <exclude reference="su4-VY-P09"/>
+                                <exclude reference="A5m-dl-5en"/>
+                                <exclude reference="Q5Z-Yp-ggB"/>
+                                <exclude reference="pHh-OE-FUe"/>
                                 <exclude reference="RvM-HD-VNN"/>
                                 <exclude reference="VJ1-Yo-05J"/>
                                 <exclude reference="eEb-rG-0Y8"/>
                                 <exclude reference="f38-c4-ZzA"/>
-                                <exclude reference="A5m-dl-5en"/>
-                                <exclude reference="Q5Z-Yp-ggB"/>
-                                <exclude reference="pHh-OE-FUe"/>
                                 <exclude reference="WYG-Pt-uHI"/>
                                 <exclude reference="PX3-pa-775"/>
                                 <exclude reference="UKt-mC-yLA"/>
@@ -344,6 +324,11 @@
                                 <exclude reference="d4G-SG-gMT"/>
                                 <include reference="lin-vE-FFo"/>
                                 <include reference="su4-VY-P09"/>
+                                <include reference="A5m-dl-5en"/>
+                                <include reference="Q5Z-Yp-ggB"/>
+                                <exclude reference="ULc-zb-D7S"/>
+                                <exclude reference="Vuf-B2-X48"/>
+                                <include reference="pHh-OE-FUe"/>
                                 <exclude reference="Fp8-Dz-zc8"/>
                                 <exclude reference="Msb-pH-jNZ"/>
                                 <include reference="RvM-HD-VNN"/>
@@ -354,11 +339,6 @@
                                 <exclude reference="hIt-Ps-rG3"/>
                                 <exclude reference="qck-qx-Irr"/>
                                 <exclude reference="ufu-Ej-h1o"/>
-                                <include reference="A5m-dl-5en"/>
-                                <include reference="Q5Z-Yp-ggB"/>
-                                <exclude reference="ULc-zb-D7S"/>
-                                <exclude reference="Vuf-B2-X48"/>
-                                <include reference="pHh-OE-FUe"/>
                                 <exclude reference="Rtr-RF-vPt"/>
                                 <include reference="WYG-Pt-uHI"/>
                                 <exclude reference="32y-eO-pR0"/>
