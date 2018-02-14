@@ -25,10 +25,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // Notifies the container that the size of its view is about to change.
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         print(UIDevice.current.orientation)
-        determineMyDeviceOrientation()
+        swipeToShare(deviceOrientation: UIDevice.current.orientation)
+        print(UIDevice.current.orientation.rawValue)
     }
     
     // MARK: - Private methods
+    
+    private func setImage(leftTopPictureIsHidden: Bool, leftBottomPictureIsHidden: Bool ) {
+        pictureView.stackTopView.viewWithTag(1)?.isHidden = leftTopPictureIsHidden
+        pictureView.stackBottomView.viewWithTag(2)?.isHidden = leftBottomPictureIsHidden
+    }
     
     private func startAppli() {
         setImage(leftTopPictureIsHidden: false, leftBottomPictureIsHidden: true)
@@ -37,35 +43,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         disableButtonDifferentOfValue(orderButtonPicture: orderButtonPicture, value: 1, isSelected: false)
     }
     
-    private func determineMyDeviceOrientation() {
-        if UIDevice.current.orientation.isLandscape {
-            print("Device is in landscape mode")
-            shareLabel.text = "Swipe left to share"
-            swipeleftToShare()
-        } else {
-            print("Device is in portrait mode")
-            shareLabel.text = "Swipe up to share"
-            swipeUpToShare()
+    private func swipeToShare(deviceOrientation: UIDeviceOrientation) {
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
+        self.view.addGestureRecognizer(swipe)
+        
+        switch deviceOrientation {
+        case .portrait, .portraitUpsideDown:
+            swipe.direction = UISwipeGestureRecognizerDirection.up
+            print("SWIPE UP/n/n/n/n")
+        case .landscapeLeft, .landscapeRight:
+            swipe.direction = UISwipeGestureRecognizerDirection.left
+            print("SWIPE LEFT")
+        default:
+            break
         }
-    }
-    
-    private func setImage(leftTopPictureIsHidden: Bool, leftBottomPictureIsHidden: Bool ) {
-        pictureView.stackTopView.viewWithTag(1)?.isHidden = leftTopPictureIsHidden
-        pictureView.stackBottomView.viewWithTag(0)?.isHidden = leftBottomPictureIsHidden
-    }
-    
-    private func swipeUpToShare() {
-        // A concrete subclass of UIGestureRecognizer that looks for swiping gestures in one or more directions.
-        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
-        swipeUp.direction = UISwipeGestureRecognizerDirection.up
-        self.view.addGestureRecognizer(swipeUp)
-    }
-    
-    private func swipeleftToShare() {
-        // A concrete subclass of UIGestureRecognizer that looks for swiping gestures in one or more directions.
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
-        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
-        self.view.addGestureRecognizer(swipeLeft)
+        
     }
     
     private func disableButtonDifferentOfValue(orderButtonPicture: [UIButton], value: Int, isSelected: Bool) {
@@ -89,17 +81,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             // The permitted direction of the swipe for this gesture recognizer.
             switch swipeGesture.direction {
             case UISwipeGestureRecognizerDirection.up:
+                if UIDevice.current.orientation.isPortrait {
                 // A view controller that you can use to offer various services from your app.
                 let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
                 
                 self.present(activityVC, animated: true, completion: nil)
                 print("Swipe up")
+                }
             case UISwipeGestureRecognizerDirection.left:
+                if UIDevice.current.orientation.isLandscape {
                 // A view controller that you can use to offer various services from your app.
                 let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
                 
                 self.present(activityVC, animated: true, completion: nil)
                 print("Swipe left")
+                }
             default:
                 break
             }
