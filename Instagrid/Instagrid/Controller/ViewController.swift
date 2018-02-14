@@ -20,13 +20,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         
         startAppli()
+//        print(UIApplication.shared.statusBarOrientation.hashValue)
+        checkOrientationDeviceForSwipeToShareAtStartup(deviceOrientation: UIApplication.shared.statusBarOrientation)
     }
     
     // Notifies the container that the size of its view is about to change.
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        print(UIDevice.current.orientation)
         swipeToShare(deviceOrientation: UIDevice.current.orientation)
-        print(UIDevice.current.orientation.rawValue)
     }
     
     // MARK: - Private methods
@@ -43,21 +43,43 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         disableButtonDifferentOfValue(orderButtonPicture: orderButtonPicture, value: 1, isSelected: false)
     }
     
+    private func checkOrientationDeviceForSwipeToShareAtStartup(deviceOrientation: UIInterfaceOrientation) {
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
+        self.view.addGestureRecognizer(swipe)
+
+        switch deviceOrientation {
+        case .portrait, .portraitUpsideDown:
+            if deviceOrientation.isPortrait {
+                swipe.direction = UISwipeGestureRecognizerDirection.up
+            }
+        case .landscapeLeft, .landscapeRight:
+            if deviceOrientation.isLandscape {
+                swipe.direction = UISwipeGestureRecognizerDirection.left
+                shareLabel.text = "Swipe left to share"
+            }
+        default:
+            break
+        }
+    }
+    
     private func swipeToShare(deviceOrientation: UIDeviceOrientation) {
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
         self.view.addGestureRecognizer(swipe)
         
         switch deviceOrientation {
         case .portrait, .portraitUpsideDown:
+            if deviceOrientation.isPortrait {
             swipe.direction = UISwipeGestureRecognizerDirection.up
-            print("SWIPE UP/n/n/n/n")
+                shareLabel.text = "Swipe up to share"
+        }
         case .landscapeLeft, .landscapeRight:
+            if deviceOrientation.isLandscape {
             swipe.direction = UISwipeGestureRecognizerDirection.left
-            print("SWIPE LEFT")
+                shareLabel.text = "Swipe left to share"
+            }
         default:
             break
         }
-        
     }
     
     private func disableButtonDifferentOfValue(orderButtonPicture: [UIButton], value: Int, isSelected: Bool) {
@@ -81,20 +103,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             // The permitted direction of the swipe for this gesture recognizer.
             switch swipeGesture.direction {
             case UISwipeGestureRecognizerDirection.up:
-                if UIDevice.current.orientation.isPortrait {
+                if UIApplication.shared.statusBarOrientation.isPortrait {
                 // A view controller that you can use to offer various services from your app.
                 let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
                 
                 self.present(activityVC, animated: true, completion: nil)
-                print("Swipe up")
                 }
             case UISwipeGestureRecognizerDirection.left:
-                if UIDevice.current.orientation.isLandscape {
+                if UIApplication.shared.statusBarOrientation.isLandscape {
                 // A view controller that you can use to offer various services from your app.
                 let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
                 
                 self.present(activityVC, animated: true, completion: nil)
-                print("Swipe left")
                 }
             default:
                 break
