@@ -20,7 +20,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         
         startAppli()
-//        print(UIApplication.shared.statusBarOrientation.hashValue)
         checkOrientationDeviceForSwipeToShareAtStartup(deviceOrientation: UIApplication.shared.statusBarOrientation)
     }
     
@@ -33,7 +32,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     private func setImage(leftTopPictureIsHidden: Bool, leftBottomPictureIsHidden: Bool ) {
         pictureView.stackTopView.viewWithTag(1)?.isHidden = leftTopPictureIsHidden
-        pictureView.stackBottomView.viewWithTag(2)?.isHidden = leftBottomPictureIsHidden
+        pictureView.stackBottomView.viewWithTag(3)?.isHidden = leftBottomPictureIsHidden
     }
     
     private func startAppli() {
@@ -150,6 +149,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func choosePicture(_ sender: UIButton) {
+        print(sender.tag)
         // An object that manages customizable, system-supplied user interfaces for taking pictures and movies on supported devices, and for choosing saved images and movies for use in your app.
         let imagePickerController = UIImagePickerController()
         // The image picker’s delegate object.

@@ -37,14 +37,14 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jnb-9q-OKM">
                                                 <rect key="frame" x="0.0" y="0.0" width="285" height="138.5"/>
                                                 <subviews>
-                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lQP-dn-WlD">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lQP-dn-WlD">
                                                         <rect key="frame" x="0.0" y="0.0" width="137.5" height="138.5"/>
                                                         <state key="normal" image="Combined Shape" backgroundImage="Rectangle 1"/>
                                                         <connections>
                                                             <action selector="choosePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Ok-D5-YJv"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6b-9x-Y1a">
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6b-9x-Y1a">
                                                         <rect key="frame" x="147.5" y="0.0" width="137.5" height="138.5"/>
                                                         <state key="normal" image="Combined Shape" backgroundImage="Rectangle 1"/>
                                                         <connections>
