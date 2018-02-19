@@ -15,6 +15,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var pictureView: PictureView!
     
     var imagePickedController = 0
+    var modelPicture = ModelPicture()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,12 +94,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            // Creates a bitmap-based graphics context and makes it the current context.
-            UIGraphicsBeginImageContext(pictureView.frame.size)
-            // Renders the layer and its sublayers into the specified context.
-            pictureView.layer.render(in: UIGraphicsGetCurrentContext()!)
-            // Returns an image based on the contents of the current bitmap-based graphics context.
-            guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return }
+            let image = modelPicture.createImageWithPictureView(pictureView: pictureView)!
             // The permitted direction of the swipe for this gesture recognizer.
             switch swipeGesture.direction {
             case UISwipeGestureRecognizerDirection.up:
@@ -149,7 +145,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func choosePicture(_ sender: UIButton) {
-        print(sender.tag)
         // An object that manages customizable, system-supplied user interfaces for taking pictures and movies on supported devices, and for choosing saved images and movies for use in your app.
         let imagePickerController = UIImagePickerController()
         // The image picker’s delegate object.
