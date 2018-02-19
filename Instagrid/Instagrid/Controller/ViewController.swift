@@ -8,6 +8,17 @@
 
 import UIKit
 
+extension UIColor {
+    static var pictureViewInitial : UIColor { return UIColor(red: 36/255, green: 85/255, blue: 126/255, alpha: 1) }
+    static var lumiere : UIColor { return UIColor(patternImage: UIImage(named: "lumiere")!)}
+    static var pexels : UIColor { return UIColor(patternImage: UIImage(named: "pexels-photo")!)}
+    static var feuille : UIColor { return UIColor(patternImage: UIImage(named: "feuille")!)}
+    static var point : UIColor { return UIColor(patternImage: UIImage(named: "point")!)}
+    static var rose : UIColor { return UIColor(patternImage: UIImage(named: "rose")!)}
+    static var cailloux : UIColor { return UIColor(patternImage: UIImage(named: "cailloux")!)}
+    static var ballon : UIColor { return UIColor(patternImage: UIImage(named: "ballon")!)}
+}
+
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet var orderButtonPicture: [UIButton]!
@@ -18,11 +29,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var modelPicture = ModelPicture()
     var selectedButtonPicture: UIButton!
     
+    var backgroundColor = [UIColor.pictureViewInitial, UIColor.lumiere, UIColor.pexels, UIColor.feuille, UIColor.point, UIColor.rose, UIColor.cailloux, UIColor.ballon]
+    var currentBackground = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         startAppli()
         checkOrientationDeviceForSwipeToShareAtStartup(deviceOrientation: UIApplication.shared.statusBarOrientation)
+        
     }
     
     // Notifies the container that the size of its view is about to change.
@@ -83,19 +98,38 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         disableButtonDifferentOfValue(orderButtonPicture: orderButtonPicture, value: 1, isSelected: false)
     }
     
+    private func changeBackgroundColorPortrait() {
+        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        swipeRightGesture.direction = UISwipeGestureRecognizerDirection.right
+        swipeLeftGesture.direction = UISwipeGestureRecognizerDirection.left
+        view.addGestureRecognizer(swipeRightGesture)
+        view.addGestureRecognizer(swipeLeftGesture)
+    }
+    
+    private func changeBackgroundColorLandscape() {
+        let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        swipeUpGesture.direction = UISwipeGestureRecognizerDirection.up
+        swipeDownGesture.direction = UISwipeGestureRecognizerDirection.down
+        view.addGestureRecognizer(swipeUpGesture)
+        view.addGestureRecognizer(swipeDownGesture)
+    }
+    
     private func checkOrientationDeviceForSwipeToShareAtStartup(deviceOrientation: UIInterfaceOrientation) {
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
         self.view.addGestureRecognizer(swipe)
-
         switch deviceOrientation {
         case .portrait, .portraitUpsideDown:
             if deviceOrientation.isPortrait {
                 swipe.direction = UISwipeGestureRecognizerDirection.up
+                changeBackgroundColorPortrait()
             }
         case .landscapeLeft, .landscapeRight:
             if deviceOrientation.isLandscape {
                 swipe.direction = UISwipeGestureRecognizerDirection.left
                 shareLabel.text = "Swipe left to share"
+                changeBackgroundColorLandscape()
             }
         default:
             break
@@ -105,17 +139,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     private func swipeToShare(deviceOrientation: UIDeviceOrientation) {
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
         self.view.addGestureRecognizer(swipe)
-        
         switch deviceOrientation {
         case .portrait, .portraitUpsideDown:
             if deviceOrientation.isPortrait {
             swipe.direction = UISwipeGestureRecognizerDirection.up
                 shareLabel.text = "Swipe up to share"
+                changeBackgroundColorPortrait()
         }
         case .landscapeLeft, .landscapeRight:
             if deviceOrientation.isLandscape {
             swipe.direction = UISwipeGestureRecognizerDirection.left
                 shareLabel.text = "Swipe left to share"
+                changeBackgroundColorLandscape()
             }
         default:
             break
@@ -132,14 +167,64 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: - @objc Methods
     
+    @objc func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
+        
+        switch gesture.direction {
+        case UISwipeGestureRecognizerDirection.left, UISwipeGestureRecognizerDirection.right:
+            if UIApplication.shared.statusBarOrientation.isPortrait {
+                if gesture.direction == UISwipeGestureRecognizerDirection.left {
+                    print("Swiped left")
+                    if currentBackground < backgroundColor.count - 1 {
+                        currentBackground += 1
+                        pictureView.backgroundColor = backgroundColor[currentBackground]
+                    }
+                }
+                if gesture.direction == UISwipeGestureRecognizerDirection.right {
+                    print("Swipe right")
+                    if currentBackground < backgroundColor.count + 1 {
+                        if currentBackground == 0 {
+                            currentBackground = 0
+                        } else {
+                            currentBackground -= 1
+                        }
+                        pictureView.backgroundColor = backgroundColor[currentBackground]
+                    }
+                }
+            }
+        case UISwipeGestureRecognizerDirection.up, UISwipeGestureRecognizerDirection.down:
+            if UIApplication.shared.statusBarOrientation.isLandscape {
+                if gesture.direction == UISwipeGestureRecognizerDirection.down {
+                    print("Swiped left")
+                    if currentBackground < backgroundColor.count - 1 {
+                        currentBackground += 1
+                        pictureView.backgroundColor = backgroundColor[currentBackground]
+                    }
+                }
+                if gesture.direction == UISwipeGestureRecognizerDirection.up {
+                    print("Swipe right")
+                    if currentBackground < backgroundColor.count + 1 {
+                        if currentBackground == 0 {
+                            currentBackground = 0
+                        } else {
+                            currentBackground -= 1
+                        }
+                        pictureView.backgroundColor = backgroundColor[currentBackground]
+                    }
+                }
+            }
+        default:
+            break
+        }
+    }
+    
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
             let image = modelPicture.createImageWithPictureView(pictureView: pictureView)!
             // The permitted direction of the swipe for this gesture recognizer.
             switch swipeGesture.direction {
             case UISwipeGestureRecognizerDirection.up:
-                if checkImageInButton() {
                     if UIApplication.shared.statusBarOrientation.isPortrait {
+                        if checkImageInButton() {
                         // A view controller that you can use to offer various services from your app.
                         let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
                         
@@ -149,8 +234,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     print("Can't swipe up")
                 }
             case UISwipeGestureRecognizerDirection.left:
-                if checkImageInButton() {
                     if UIApplication.shared.statusBarOrientation.isLandscape {
+                         if checkImageInButton() {
                         // A view controller that you can use to offer various services from your app.
                         let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
                         
