@@ -314,7 +314,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             pictureView.picture[imagePickedController].setImage(pickedImage, for: .normal)
-            pictureView.picture[imagePickedController].contentMode = .scaleAspectFit
+            pictureView.picture[imagePickedController].imageView?.contentMode = .scaleAspectFill
+            pictureView.picture[imagePickedController].clipsToBounds = true
         }
         
         // Dismisses the view controller that was presented modally by the view controller.
