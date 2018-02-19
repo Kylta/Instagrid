@@ -254,24 +254,27 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // MARK: - @IBaction Methods
 
     @IBAction func didTapBottomButtonForChooseOrder(_ sender: UIButton) {
+        let firstPicture = pictureView.picture[1]
+        let thirthPicture = pictureView.picture[3]
         switch sender.tag {
         case 0:
             // left button
             setImage(leftTopPictureIsHidden: true, leftBottomPictureIsHidden: false)
             sender.isSelected = true
             
+            thirthPicture.setImage(firstPicture.currentImage, for: .normal)
             disableButtonDifferentOfValue(orderButtonPicture: orderButtonPicture, value: 0, isSelected: false)
         case 1:
             // middle button
             setImage(leftTopPictureIsHidden: false, leftBottomPictureIsHidden: true)
             sender.isSelected = true
-            
+            firstPicture.setImage(thirthPicture.currentImage, for: .normal)
             disableButtonDifferentOfValue(orderButtonPicture: orderButtonPicture, value: 1, isSelected: false)
         case 2:
             // right button
             setImage(leftTopPictureIsHidden: false, leftBottomPictureIsHidden: false)
             sender.isSelected = true
-            
+            thirthPicture.setBackgroundImage(UIImage(named: "Rectangle 1"), for: .normal)
             disableButtonDifferentOfValue(orderButtonPicture: orderButtonPicture, value: 2, isSelected: false)
         default:
             break
