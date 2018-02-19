@@ -16,6 +16,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     var imagePickedController = 0
     var modelPicture = ModelPicture()
+    var selectedButtonPicture: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,45 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // MARK: - Private methods
+    
+    private func alertMissingPicture() {
+        let alert = UIAlertController(title: "Error", message: "Missing pictures", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in }))
+        present(alert, animated: true)
+    }
+    
+    private func checkImageInButton() -> Bool {
+        var isDifferent = false
+        
+        if orderButtonPicture[0].isSelected {
+            if ((pictureView.picture[0].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[2].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[3].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) {
+                isDifferent = false
+                alertMissingPicture()
+                return isDifferent
+            } else {
+                isDifferent = true
+                return isDifferent
+            }
+        } else if orderButtonPicture[1].isSelected {
+            if ((pictureView.picture[0].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[1].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[2].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) {
+                isDifferent = false
+                alertMissingPicture()
+                return isDifferent
+            } else {
+                isDifferent = true
+                return isDifferent
+            }
+        } else {
+            if ((pictureView.picture[0].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[1].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[2].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[3].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) {
+                isDifferent = false
+                alertMissingPicture()
+                return isDifferent
+            } else {
+                isDifferent = true
+                return isDifferent
+            }
+        }
+    }
     
     private func setImage(leftTopPictureIsHidden: Bool, leftBottomPictureIsHidden: Bool ) {
         pictureView.stackTopView.viewWithTag(1)?.isHidden = leftTopPictureIsHidden
@@ -98,22 +138,31 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             // The permitted direction of the swipe for this gesture recognizer.
             switch swipeGesture.direction {
             case UISwipeGestureRecognizerDirection.up:
-                if UIApplication.shared.statusBarOrientation.isPortrait {
-                // A view controller that you can use to offer various services from your app.
-                let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-                
-                self.present(activityVC, animated: true, completion: nil)
+                if checkImageInButton() {
+                    if UIApplication.shared.statusBarOrientation.isPortrait {
+                        // A view controller that you can use to offer various services from your app.
+                        let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                        
+                        self.present(activityVC, animated: true, completion: nil)
+                    }
+                } else {
+                    print("Can't swipe up")
                 }
             case UISwipeGestureRecognizerDirection.left:
-                if UIApplication.shared.statusBarOrientation.isLandscape {
-                // A view controller that you can use to offer various services from your app.
-                let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-                
-                self.present(activityVC, animated: true, completion: nil)
+                if checkImageInButton() {
+                    if UIApplication.shared.statusBarOrientation.isLandscape {
+                        // A view controller that you can use to offer various services from your app.
+                        let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                        
+                        self.present(activityVC, animated: true, completion: nil)
+                    } else {
+                        print("Can't swipe left")
+                    }
                 }
             default:
                 break
             }
+            
         }
     }
     
