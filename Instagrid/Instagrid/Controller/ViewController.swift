@@ -167,6 +167,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: - @objc Methods
     
+    fileprivate func nextBackgroundPictureView() {
+        if currentBackground < backgroundColor.count - 1 {
+            currentBackground += 1
+            pictureView.backgroundColor = backgroundColor[currentBackground]
+        }
+    }
+    
+    fileprivate func previousBackgroundPictureView() {
+        if currentBackground < backgroundColor.count + 1 {
+            if currentBackground == 0 {
+                currentBackground = 0
+            } else {
+                currentBackground -= 1
+            }
+            pictureView.backgroundColor = backgroundColor[currentBackground]
+        }
+    }
+    
     @objc func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
         
         switch gesture.direction {
@@ -174,42 +192,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             if UIApplication.shared.statusBarOrientation.isPortrait {
                 if gesture.direction == UISwipeGestureRecognizerDirection.left {
                     print("Swiped left")
-                    if currentBackground < backgroundColor.count - 1 {
-                        currentBackground += 1
-                        pictureView.backgroundColor = backgroundColor[currentBackground]
-                    }
+                    nextBackgroundPictureView()
                 }
                 if gesture.direction == UISwipeGestureRecognizerDirection.right {
                     print("Swipe right")
-                    if currentBackground < backgroundColor.count + 1 {
-                        if currentBackground == 0 {
-                            currentBackground = 0
-                        } else {
-                            currentBackground -= 1
-                        }
-                        pictureView.backgroundColor = backgroundColor[currentBackground]
-                    }
+                    previousBackgroundPictureView()
                 }
             }
         case UISwipeGestureRecognizerDirection.up, UISwipeGestureRecognizerDirection.down:
             if UIApplication.shared.statusBarOrientation.isLandscape {
                 if gesture.direction == UISwipeGestureRecognizerDirection.down {
                     print("Swiped left")
-                    if currentBackground < backgroundColor.count - 1 {
-                        currentBackground += 1
-                        pictureView.backgroundColor = backgroundColor[currentBackground]
-                    }
+                    nextBackgroundPictureView()
                 }
                 if gesture.direction == UISwipeGestureRecognizerDirection.up {
                     print("Swipe right")
-                    if currentBackground < backgroundColor.count + 1 {
-                        if currentBackground == 0 {
-                            currentBackground = 0
-                        } else {
-                            currentBackground -= 1
-                        }
-                        pictureView.backgroundColor = backgroundColor[currentBackground]
-                    }
+                    previousBackgroundPictureView()
                 }
             }
         default:
