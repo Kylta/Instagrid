@@ -29,15 +29,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var modelPicture = ModelPicture()
     var selectedButtonPicture: UIButton!
     
-    var backgroundColor = [UIColor.pictureViewInitial, UIColor.lumiere, UIColor.pexels, UIColor.feuille, UIColor.point, UIColor.rose, UIColor.cailloux, UIColor.ballon]
-    var currentBackground = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         startAppli()
         checkOrientationDeviceForSwipeToShareAtStartup(deviceOrientation: UIApplication.shared.statusBarOrientation)
         
+        modelPicture.backgroundColor = [UIColor.pictureViewInitial, UIColor.lumiere, UIColor.pexels, UIColor.feuille, UIColor.point, UIColor.rose, UIColor.cailloux, UIColor.ballon]
+
     }
     
     // Notifies the container that the size of its view is about to change.
@@ -167,24 +166,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: - @objc Methods
     
-    fileprivate func nextBackgroundPictureView() {
-        if currentBackground < backgroundColor.count - 1 {
-            currentBackground += 1
-            pictureView.backgroundColor = backgroundColor[currentBackground]
-        }
-    }
-    
-    fileprivate func previousBackgroundPictureView() {
-        if currentBackground < backgroundColor.count + 1 {
-            if currentBackground == 0 {
-                currentBackground = 0
-            } else {
-                currentBackground -= 1
-            }
-            pictureView.backgroundColor = backgroundColor[currentBackground]
-        }
-    }
-    
     @objc func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
         
         switch gesture.direction {
@@ -192,22 +173,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             if UIApplication.shared.statusBarOrientation.isPortrait {
                 if gesture.direction == UISwipeGestureRecognizerDirection.left {
                     print("Swiped left")
-                    nextBackgroundPictureView()
+                    modelPicture.nextBackgroundPictureView(pictureView)
                 }
                 if gesture.direction == UISwipeGestureRecognizerDirection.right {
                     print("Swipe right")
-                    previousBackgroundPictureView()
+                    modelPicture.previousBackgroundPictureView(pictureView)
                 }
             }
         case UISwipeGestureRecognizerDirection.up, UISwipeGestureRecognizerDirection.down:
             if UIApplication.shared.statusBarOrientation.isLandscape {
                 if gesture.direction == UISwipeGestureRecognizerDirection.down {
                     print("Swiped left")
-                    nextBackgroundPictureView()
+                    modelPicture.nextBackgroundPictureView(pictureView)
                 }
                 if gesture.direction == UISwipeGestureRecognizerDirection.up {
                     print("Swipe right")
-                    previousBackgroundPictureView()
+                    modelPicture.previousBackgroundPictureView(pictureView)
                 }
             }
         default:

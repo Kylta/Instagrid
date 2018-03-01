@@ -11,6 +11,27 @@ import UIKit
 
 struct ModelPicture {
     
+    var backgroundColor = [UIColor]()
+    var currentBackground = 0
+    
+    mutating func nextBackgroundPictureView(_ pictureView: PictureView) {
+        if currentBackground < backgroundColor.count - 1 {
+            currentBackground += 1
+            pictureView.backgroundColor = backgroundColor[currentBackground]
+        }
+    }
+    
+    mutating func previousBackgroundPictureView(_ pictureView: PictureView) {
+        if currentBackground < backgroundColor.count + 1 {
+            if currentBackground == 0 {
+                currentBackground = 0
+            } else {
+                currentBackground -= 1
+            }
+            pictureView.backgroundColor = backgroundColor[currentBackground]
+        }
+    }
+    
     func createImageWithPictureView(pictureView: PictureView) -> UIImage? {
         // Creates a bitmap-based graphics context and makes it the current context.
         UIGraphicsBeginImageContext(pictureView.frame.size)
