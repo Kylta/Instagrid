@@ -40,7 +40,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in }))
         present(alert, animated: true)
     }
-    
+ 
     private func checkImageInButton() -> Bool {
         var isDifferent = false
         
@@ -61,30 +61,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         return true
     }
-        
-      /*  if orderButtonPicture[0].isSelected {
-            
-        } else if orderButtonPicture[1].isSelected {
-            if ((pictureView.picture[0].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[1].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[2].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) {
-                isDifferent = false
-                alertMissingPicture()
-                return isDifferent
-            } else {
-                isDifferent = true
-                return isDifferent
-            }
-        } else {
-            if ((pictureView.picture[0].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[1].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[2].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[3].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) {
-                isDifferent = false
-                alertMissingPicture()
-                return isDifferent
-            } else {
-                isDifferent = true
-                return isDifferent
-            }
-        }
-    }
-    */
+
     private func setImage(leftTopPictureIsHidden: Bool, leftBottomPictureIsHidden: Bool ) {
         pictureView.stackTopView.viewWithTag(1)?.isHidden = leftTopPictureIsHidden
         pictureView.stackBottomView.viewWithTag(3)?.isHidden = leftBottomPictureIsHidden
