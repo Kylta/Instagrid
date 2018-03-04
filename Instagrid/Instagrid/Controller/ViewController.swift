@@ -8,17 +8,6 @@
 
 import UIKit
 
-extension UIColor {
-    static var pictureViewInitial : UIColor { return UIColor(red: 36/255, green: 85/255, blue: 126/255, alpha: 1) }
-    static var lumiere : UIColor { return UIColor(patternImage: UIImage(named: "lumiere")!)}
-    static var pexels : UIColor { return UIColor(patternImage: UIImage(named: "pexels-photo")!)}
-    static var feuille : UIColor { return UIColor(patternImage: UIImage(named: "feuille")!)}
-    static var point : UIColor { return UIColor(patternImage: UIImage(named: "point")!)}
-    static var rose : UIColor { return UIColor(patternImage: UIImage(named: "rose")!)}
-    static var cailloux : UIColor { return UIColor(patternImage: UIImage(named: "cailloux")!)}
-    static var ballon : UIColor { return UIColor(patternImage: UIImage(named: "ballon")!)}
-}
-
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet var orderButtonPicture: [UIButton]!
@@ -55,15 +44,26 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     private func checkImageInButton() -> Bool {
         var isDifferent = false
         
-        if orderButtonPicture[0].isSelected {
-            if ((pictureView.picture[0].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[2].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[3].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) {
-                isDifferent = false
-                alertMissingPicture()
-                return isDifferent
-            } else {
-                isDifferent = true
-                return isDifferent
+        for button in orderButtonPicture {
+            switch button.isSelected {
+            case true:
+                if ((pictureView.picture[0].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[2].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[3].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) {
+                    isDifferent = false
+                    alertMissingPicture()
+                    return isDifferent
+                } else {
+                    isDifferent = true
+                    return isDifferent
+                }
+            default:
+                break
             }
+        }
+        return true
+    }
+        
+      /*  if orderButtonPicture[0].isSelected {
+            
         } else if orderButtonPicture[1].isSelected {
             if ((pictureView.picture[0].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[1].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[2].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) {
                 isDifferent = false
@@ -84,7 +84,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
         }
     }
-    
+    */
     private func setImage(leftTopPictureIsHidden: Bool, leftBottomPictureIsHidden: Bool ) {
         pictureView.stackTopView.viewWithTag(1)?.isHidden = leftTopPictureIsHidden
         pictureView.stackBottomView.viewWithTag(3)?.isHidden = leftBottomPictureIsHidden
