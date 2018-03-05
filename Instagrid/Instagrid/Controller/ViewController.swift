@@ -40,6 +40,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in }))
         present(alert, animated: true)
     }
+    
+    private func setImage(leftTopPictureIsHidden: Bool, leftBottomPictureIsHidden: Bool ) {
+        pictureView.stackTopView.viewWithTag(1)?.isHidden = leftTopPictureIsHidden
+        pictureView.stackBottomView.viewWithTag(3)?.isHidden = leftBottomPictureIsHidden
+    }
  
     private func checkImageInButton() -> Bool {
         var isDifferent = false
@@ -79,11 +84,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
         }
         return true
-    }
-
-    private func setImage(leftTopPictureIsHidden: Bool, leftBottomPictureIsHidden: Bool ) {
-        pictureView.stackTopView.viewWithTag(1)?.isHidden = leftTopPictureIsHidden
-        pictureView.stackBottomView.viewWithTag(3)?.isHidden = leftBottomPictureIsHidden
     }
     
     private func startAppli() {
@@ -198,15 +198,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             // The permitted direction of the swipe for this gesture recognizer.
             switch swipeGesture.direction {
             case UISwipeGestureRecognizerDirection.up:
-                    if UIApplication.shared.statusBarOrientation.isPortrait {
-                        if checkImageInButton() {
+                if UIApplication.shared.statusBarOrientation.isPortrait {
+                    if checkImageInButton() {
                         // A view controller that you can use to offer various services from your app.
                         let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
                         
                         self.present(activityVC, animated: true, completion: nil)
+                    } else {
+                        print("Can't swipe up")
                     }
-                } else {
-                    print("Can't swipe up")
                 }
             case UISwipeGestureRecognizerDirection.left:
                     if UIApplication.shared.statusBarOrientation.isLandscape {
@@ -266,12 +266,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
             // The type of picker interface to be displayed by the controller.
             imagePickerController.sourceType = .camera
+            imagePickerController.allowsEditing = true
             self.imagePickedController = sender.tag
             self.present(imagePickerController, animated: true, completion: nil)
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Photo library", style: .default, handler: { (action: UIAlertAction) in
             imagePickerController.sourceType = .photoLibrary
+            imagePickerController.allowsEditing = true
             self.imagePickedController = sender.tag
             self.present(imagePickerController, animated: true, completion: nil)
         }))
@@ -286,7 +288,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // Tells the delegate that the user picked a still image or movie.
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        
+        if let editImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            pictureView.picture[imagePickedController].setImage(editImage, for: .normal)
+            pictureView.picture[imagePickedController].imageView?.contentMode = .scaleAspectFill
+            pictureView.picture[imagePickedController].clipsToBounds = true
+            
+        } else if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             pictureView.picture[imagePickedController].setImage(pickedImage, for: .normal)
             pictureView.picture[imagePickedController].imageView?.contentMode = .scaleAspectFill
             pictureView.picture[imagePickedController].clipsToBounds = true

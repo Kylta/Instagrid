@@ -52,5 +52,7 @@
 	<string></string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string></string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>
