@@ -47,10 +47,29 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         for button in orderButtonPicture {
             switch button.isSelected {
             case true:
-                if ((pictureView.picture[0].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[2].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[3].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) {
+                if button.tag == 0 {
+                    if ((pictureView.picture[0].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) ||
+                        ((pictureView.picture[2].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[3].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) {
+                        isDifferent = false
+                        alertMissingPicture()
+                        return isDifferent
+                    }
+                }
+                if button.tag == 1 {
+                    if ((pictureView.picture[0].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) ||
+                        ((pictureView.picture[1].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[2].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) {
+                        isDifferent = false
+                        alertMissingPicture()
+                        return isDifferent
+                    }
+                }
+                if button.tag == 2 {
+                if ((pictureView.picture[0].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[1].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) ||
+                    ((pictureView.picture[2].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[3].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) {
                     isDifferent = false
                     alertMissingPicture()
                     return isDifferent
+                    }
                 } else {
                     isDifferent = true
                     return isDifferent
@@ -75,8 +94,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     private func changeBackgroundColorPortrait() {
-        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeChangeBackgroundColor(_:)))
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeChangeBackgroundColor(_:)))
         swipeRightGesture.direction = UISwipeGestureRecognizerDirection.right
         swipeLeftGesture.direction = UISwipeGestureRecognizerDirection.left
         view.addGestureRecognizer(swipeRightGesture)
@@ -84,8 +103,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     private func changeBackgroundColorLandscape() {
-        let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-        let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeChangeBackgroundColor(_:)))
+        let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeChangeBackgroundColor(_:)))
         swipeUpGesture.direction = UISwipeGestureRecognizerDirection.up
         swipeDownGesture.direction = UISwipeGestureRecognizerDirection.down
         view.addGestureRecognizer(swipeUpGesture)
@@ -93,7 +112,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     private func checkOrientationDeviceForSwipeToShareAtStartup(deviceOrientation: UIInterfaceOrientation) {
-        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGestureToShare(gesture:)))
         self.view.addGestureRecognizer(swipe)
         switch deviceOrientation {
         case .portrait, .portraitUpsideDown:
@@ -113,7 +132,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     private func swipeToShare(deviceOrientation: UIDeviceOrientation) {
-        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGestureToShare(gesture:)))
         self.view.addGestureRecognizer(swipe)
         switch deviceOrientation {
         case .portrait, .portraitUpsideDown:
@@ -143,7 +162,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: - @objc Methods
     
-    @objc func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
+    @objc func handleSwipeChangeBackgroundColor(_ gesture: UISwipeGestureRecognizer) {
         
         switch gesture.direction {
         case UISwipeGestureRecognizerDirection.left, UISwipeGestureRecognizerDirection.right:
@@ -173,7 +192,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+    @objc func respondToSwipeGestureToShare(gesture: UIGestureRecognizer) {
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
             let image = modelPicture.createImageWithPictureView(pictureView: pictureView)!
             // The permitted direction of the swipe for this gesture recognizer.
@@ -203,7 +222,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             default:
                 break
             }
-            
         }
     }
     

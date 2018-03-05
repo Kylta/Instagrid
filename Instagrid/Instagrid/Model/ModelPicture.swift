@@ -38,7 +38,7 @@ struct ModelPicture {
         // Renders the layer and its sublayers into the specified context.
         pictureView.layer.render(in: UIGraphicsGetCurrentContext()!)
         // Returns an image based on the contents of the current bitmap-based graphics context.
-        guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return UIImage(named: "Rectangle 1")}
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return UIImage()}
         
         return image
     }
