@@ -16,13 +16,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     var imagePickedController = 0
     var modelPicture = ModelPicture()
-    var selectedButtonPicture: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         startAppli()
-        checkOrientationDeviceForSwipeToShareAtStartup(deviceOrientation: UIApplication.shared.statusBarOrientation)
+        checkOrientationDeviceForSwipeToShareAtStartup(interfaceOrientation: UIApplication.shared.statusBarOrientation)
         
         modelPicture.backgroundColor = [UIColor.pictureViewInitial, UIColor.lumiere, UIColor.pexels, UIColor.feuille, UIColor.point, UIColor.rose, UIColor.cailloux, UIColor.ballon]
 
@@ -34,14 +33,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // MARK: - Private methods
-    
-    private func alertMissingPicture() {
-        let alert = UIAlertController(title: "Error", message: "Missing pictures", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in }))
-        present(alert, animated: true)
-    }
-    
-    private func setImage(leftTopPictureIsHidden: Bool, leftBottomPictureIsHidden: Bool ) {
+   
+    private func setImagePictureView(leftTopPictureIsHidden: Bool, leftBottomPictureIsHidden: Bool ) {
         pictureView.stackTopView.viewWithTag(1)?.isHidden = leftTopPictureIsHidden
         pictureView.stackBottomView.viewWithTag(3)?.isHidden = leftBottomPictureIsHidden
     }
@@ -87,7 +80,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     private func startAppli() {
-        setImage(leftTopPictureIsHidden: false, leftBottomPictureIsHidden: true)
+        setImagePictureView(leftTopPictureIsHidden: false, leftBottomPictureIsHidden: true)
         orderButtonPicture[1].isSelected = true
         
         disableButtonDifferentOfValue(orderButtonPicture: orderButtonPicture, value: 1, isSelected: false)
@@ -111,17 +104,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         view.addGestureRecognizer(swipeDownGesture)
     }
     
-    private func checkOrientationDeviceForSwipeToShareAtStartup(deviceOrientation: UIInterfaceOrientation) {
+    private func checkOrientationDeviceForSwipeToShareAtStartup(interfaceOrientation: UIInterfaceOrientation) {
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGestureToShare(gesture:)))
         self.view.addGestureRecognizer(swipe)
-        switch deviceOrientation {
+        switch interfaceOrientation {
         case .portrait, .portraitUpsideDown:
-            if deviceOrientation.isPortrait {
+            if interfaceOrientation.isPortrait {
                 swipe.direction = UISwipeGestureRecognizerDirection.up
+                shareLabel.text = "Swipe up to share"
                 changeBackgroundColorPortrait()
             }
         case .landscapeLeft, .landscapeRight:
-            if deviceOrientation.isLandscape {
+            if interfaceOrientation.isLandscape {
                 swipe.direction = UISwipeGestureRecognizerDirection.left
                 shareLabel.text = "Swipe left to share"
                 changeBackgroundColorLandscape()
@@ -158,6 +152,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 button.isSelected = isSelected
             }
         }
+    }
+    
+    private func alertMissingPicture() {
+        let alert = UIAlertController(title: "Error", message: "Missing pictures", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in }))
+        present(alert, animated: true)
     }
     
     // MARK: - @objc Methods
@@ -233,20 +233,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         switch sender.tag {
         case 0:
             // left button
-            setImage(leftTopPictureIsHidden: true, leftBottomPictureIsHidden: false)
+            setImagePictureView(leftTopPictureIsHidden: true, leftBottomPictureIsHidden: false)
             sender.isSelected = true
             
             thirthPicture.setImage(firstPicture.currentImage, for: .normal)
             disableButtonDifferentOfValue(orderButtonPicture: orderButtonPicture, value: 0, isSelected: false)
         case 1:
             // middle button
-            setImage(leftTopPictureIsHidden: false, leftBottomPictureIsHidden: true)
+            setImagePictureView(leftTopPictureIsHidden: false, leftBottomPictureIsHidden: true)
             sender.isSelected = true
             firstPicture.setImage(thirthPicture.currentImage, for: .normal)
             disableButtonDifferentOfValue(orderButtonPicture: orderButtonPicture, value: 1, isSelected: false)
         case 2:
             // right button
-            setImage(leftTopPictureIsHidden: false, leftBottomPictureIsHidden: false)
+            setImagePictureView(leftTopPictureIsHidden: false, leftBottomPictureIsHidden: false)
             sender.isSelected = true
             thirthPicture.setBackgroundImage(UIImage(named: "Rectangle 1"), for: .normal)
             disableButtonDifferentOfValue(orderButtonPicture: orderButtonPicture, value: 2, isSelected: false)

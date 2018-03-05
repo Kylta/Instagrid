@@ -6,7 +6,7 @@
 //  Copyright © 2018 Christophe Bugnon. All rights reserved.
 //
 
-import Foundation
+
 import UIKit
 
 struct ModelPicture {
