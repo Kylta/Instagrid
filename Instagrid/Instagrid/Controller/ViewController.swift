@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     @IBOutlet var orderButtonPicture: [UIButton]!
     @IBOutlet weak var shareLabel: UILabel!
     @IBOutlet weak var pictureView: PictureView!
@@ -24,7 +24,30 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         checkOrientationDeviceForSwipeToShareAtStartup(interfaceOrientation: UIApplication.shared.statusBarOrientation)
         
         modelPicture.backgroundColor = [UIColor.pictureViewInitial, UIColor.lumiere, UIColor.pexels, UIColor.feuille, UIColor.point, UIColor.rose, UIColor.cailloux, UIColor.ballon]
-
+        
+        
+    }
+    
+    fileprivate func animationReturnIdentity() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
+            self.pictureView.transform = .identity
+        }, completion: nil)
+    }
+    
+    fileprivate func animationPortrait() {
+        print("Animate")
+    
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
+            self.pictureView.transform = .init(translationX: 0, y: self.view.bounds.height/(-3))
+        }, completion: nil)
+    }
+    
+    fileprivate func animationLanscape() {
+        print("Animate")
+        
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
+            self.pictureView.transform = .init(translationX: self.view.bounds.width/(-3), y: 0)
+        }, completion: nil)
     }
     
     // Notifies the container that the size of its view is about to change.
@@ -33,12 +56,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // MARK: - Private methods
-   
+    
     private func setImagePictureView(leftTopPictureIsHidden: Bool, leftBottomPictureIsHidden: Bool ) {
         pictureView.stackTopView.viewWithTag(1)?.isHidden = leftTopPictureIsHidden
         pictureView.stackBottomView.viewWithTag(3)?.isHidden = leftBottomPictureIsHidden
     }
- 
+    
     private func checkImageInButton() -> Bool {
         var isDifferent = false
         
@@ -62,11 +85,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     }
                 }
                 if button.tag == 2 {
-                if ((pictureView.picture[0].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[1].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) ||
-                    ((pictureView.picture[2].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[3].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) {
-                    isDifferent = false
-                    alertMissingPicture()
-                    return isDifferent
+                    if ((pictureView.picture[0].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[1].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) ||
+                        ((pictureView.picture[2].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) || ((pictureView.picture[3].currentImage?.isEqual(UIImage(named: "Combined Shape")))!) {
+                        isDifferent = false
+                        alertMissingPicture()
+                        return isDifferent
                     }
                 } else {
                     isDifferent = true
@@ -131,13 +154,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         switch deviceOrientation {
         case .portrait, .portraitUpsideDown:
             if deviceOrientation.isPortrait {
-            swipe.direction = UISwipeGestureRecognizerDirection.up
+                swipe.direction = UISwipeGestureRecognizerDirection.up
                 shareLabel.text = "Swipe up to share"
                 changeBackgroundColorPortrait()
-        }
+            }
         case .landscapeLeft, .landscapeRight:
             if deviceOrientation.isLandscape {
-            swipe.direction = UISwipeGestureRecognizerDirection.left
+                swipe.direction = UISwipeGestureRecognizerDirection.left
                 shareLabel.text = "Swipe left to share"
                 changeBackgroundColorLandscape()
             }
@@ -156,7 +179,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     private func alertMissingPicture() {
         let alert = UIAlertController(title: "Error", message: "Missing pictures", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in }))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in self.animationReturnIdentity() }))
         present(alert, animated: true)
     }
     
@@ -202,20 +225,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     if checkImageInButton() {
                         // A view controller that you can use to offer various services from your app.
                         let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-                        
-                        self.present(activityVC, animated: true, completion: nil)
+//                        animationPortrait()
+                        activityVC.completionWithItemsHandler = completionHandler
+                        self.present(activityVC, animated: true, completion: { self.animationPortrait() } )
                     } else {
+                        animationPortrait()
                         print("Can't swipe up")
                     }
                 }
             case UISwipeGestureRecognizerDirection.left:
-                    if UIApplication.shared.statusBarOrientation.isLandscape {
-                         if checkImageInButton() {
+                if UIApplication.shared.statusBarOrientation.isLandscape {
+                    if checkImageInButton() {
                         // A view controller that you can use to offer various services from your app.
                         let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-                        
-                        self.present(activityVC, animated: true, completion: nil)
+                        activityVC.completionWithItemsHandler = completionHandler
+                        self.present(activityVC, animated: true, completion: { self.animationLanscape() })
                     } else {
+                        animationLanscape()
                         print("Can't swipe left")
                     }
                 }
@@ -225,8 +251,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
+    func completionHandler(activityType: UIActivityType?, shared: Bool, items: [Any]?, error: Error?) {
+        if !(shared) {
+            print("Bad not shared")
+            animationReturnIdentity()
+        }
+    }
+    
     // MARK: - @IBaction Methods
-
+    
     @IBAction func didTapBottomButtonForChooseOrder(_ sender: UIButton) {
         let firstPicture = pictureView.picture[1]
         let thirthPicture = pictureView.picture[3]
@@ -283,7 +316,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.present((actionSheet), animated: true, completion: nil)
         
     }
-    
+        
     // MARK: - UIImagePickerControllerDelegate Methods
     
     // Tells the delegate that the user picked a still image or movie.

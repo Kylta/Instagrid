@@ -18,3 +18,13 @@ extension UIColor {
     static var cailloux : UIColor { return UIColor(patternImage: UIImage(named: "cailloux")!)}
     static var ballon : UIColor { return UIColor(patternImage: UIImage(named: "ballon")!)}
 }
+
+extension UIImagePickerController
+{
+    override open var shouldAutorotate: Bool {
+        return true
+    }
+    override open var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return .all
+    }
+}
