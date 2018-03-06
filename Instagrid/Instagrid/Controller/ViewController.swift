@@ -38,7 +38,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print("Animate")
     
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
-            self.pictureView.transform = .init(translationX: 0, y: self.view.bounds.height/(-3))
+            self.pictureView.transform = .init(translationX: 0, y: self.view.bounds.height * -2)
         }, completion: nil)
     }
     
@@ -46,7 +46,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print("Animate")
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
-            self.pictureView.transform = .init(translationX: self.view.bounds.width/(-3), y: 0)
+            self.pictureView.transform = .init(translationX: self.view.bounds.width * -2, y: 0)
         }, completion: nil)
     }
     

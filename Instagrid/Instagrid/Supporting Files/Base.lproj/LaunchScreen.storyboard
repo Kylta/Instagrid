@@ -27,7 +27,7 @@
                                     <constraint firstAttribute="width" constant="125" id="rbv-yv-U9n"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="forme-1" translatesAutoresizingMaskIntoConstraints="NO" id="Qsw-bL-dtw">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="forme" translatesAutoresizingMaskIntoConstraints="NO" id="Qsw-bL-dtw">
                                 <rect key="frame" x="157" y="318" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Qsw-bL-dtw" secondAttribute="height" multiplier="1:1" id="5d0-55-fed"/>
@@ -53,6 +53,6 @@
     </scenes>
     <resources>
         <image name="Rectangle-1" width="180" height="180"/>
-        <image name="forme-1" width="142" height="142"/>
+        <image name="forme" width="142" height="142"/>
     </resources>
 </document>
